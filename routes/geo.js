@@ -53,10 +53,10 @@ router.get('/ottawa', async function (req, res, next) {
     for (let i = 0; i < outCount; i++) {
         let rnd = Math.floor(Math.random() * mapData.length);
         let out = {
-            "lat": mapData[rnd].geometry.coordinates[1],
-            "lng": mapData[rnd].geometry.coordinates[0],
+            "lat": mapData[rnd].geometry.y,
+            "lng": mapData[rnd].geometry.x,
             "setId": i,
-            "spec": mapData[rnd].properties.SPECIFIQUE
+            "spec": mapData[rnd].attributes.TAGS
         };
         outData.push(out);
     }
