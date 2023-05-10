@@ -3,12 +3,13 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const db = require("./modules/db");
 
 
 
 const indexRouter = require('./routes/index');
 const geoRouter = require('./routes/geo');
-
+const weatherRouter = require('./routes/weather');
 
 
 
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+db.init();
 
 
 
@@ -39,6 +41,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 
 app.use('/geo', geoRouter);
+
+app.use('/weather', weatherRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
