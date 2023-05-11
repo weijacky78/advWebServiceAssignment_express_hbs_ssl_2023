@@ -27,7 +27,7 @@ router.get('/ottawa', async function (req, res, next) {
     let fetch = await cache.fetchUrl(url);
     let mapData = fetch.features;
     let outData = [];
-    let outCount = mapData.length > 30 ? 30 : mapData.length;
+    let outCount = mapData.length > 100 ? 100 : mapData.length;
 
     for (let i = 0; i < outCount; i++) {
         let rnd = Math.floor(Math.random() * mapData.length);
