@@ -3,6 +3,7 @@ const router = require('express').Router();
 const axios = require('axios');
 const cors = require('cors');
 const { map } = require('../app');
+const cache = require("../models/cache");
 
 router.use(cors());
 
@@ -20,33 +21,11 @@ router.get('/', async function (req, res, next) {
     res.json({ lat: lat, lng: lng });
 });
 
-/* GET home page. */
-router.get('/hydrants', async function (req, res, next) {
-
-    let url = `https://www.gatineau.ca/upload/donneesouvertes/BORNE_FONTAINE.json`;
-    let fetch = await axios.get(url);
-    let mapData = fetch.data.features;
-    let outData = [];
-    let outCount = mapData.length > 20 ? 20 : mapData.length;
-
-    for (let i = 0; i < outCount; i++) {
-        let rnd = Math.floor(Math.random() * mapData.length);
-        let out = {
-            "lat": mapData[rnd].geometry.coordinates[1],
-            "lng": mapData[rnd].geometry.coordinates[0],
-            "setId": i,
-            "spec": mapData[rnd].properties.SPECIFIQUE
-        };
-        outData.push(out);
-    }
-    res.json(outData);
-});
-
 // ottawa api
 router.get('/ottawa', async function (req, res, next) {
     let url = `https://maps.ottawa.ca/arcgis/rest/services/OfficialPlan/MapServer/137/query?where=1%3D1&outFields=NAME,ADDRESS,POSTAL_CODE,PHONE,EMAIL,WEBSITE,OUTDOOR_COMPONENT,ACTIVE,SEASONAL_CONSTRAINTS,LONGITUDE,STUDIO,STORE,NATURE,PUBLIC_ART,EXTERNAL,CITY,PROVINCE,LATITUDE,FOOD,TAGS,SPORT,HERITAGE,LEARNING&outSR=4326&f=json`
-    let fetch = await axios.get(url);
-    let mapData = fetch.data.features;
+    let fetch = await cache.fetchUrl(url);
+    let mapData = fetch.features;
     let outData = [];
     let outCount = mapData.length > 30 ? 30 : mapData.length;
 
