@@ -1,7 +1,7 @@
 module.exports = {
 	host: "localhost",
 	user: "root",
-	password: "xin",
+	password: "joshua",
 	database: "advWebServerFinalAssignment_cache",
 	connectionLimit: 5
 };
