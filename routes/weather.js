@@ -12,8 +12,8 @@ router.get('/', async function (req, res, next) {
     let fetch = await cache.fetchUrl(url);
     let out = {
         "date": fetch.current.last_updated,
-        "wIcon": fetch.current.condition.icon,
         "wDescriptions": fetch.current.condition.text,
+        "wIcon": fetch.current.condition.icon,
         "temperature": fetch.current.temp_c,
 
     };
