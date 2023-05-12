@@ -8,13 +8,16 @@ router.use(cors());
 /* GET home page. */
 router.get('/', async function (req, res, next) {
 
-    let url = `http://api.weatherstack.com/current?access_key=1634b7d9eaed96fda9654619825ed2e2&query=Ottawa`;
-
+    let url = `https://api.weatherapi.com/v1/forecast.json?key=9a4b327b695b412c92e183028231105 &q=Ottawa, Canada&aqi=no`;
+    console.log("hello", url)
     let fetch = await cache.fetchUrl(url);
+    console.log("hello", fetch)
     let out = {
-        "date": fetch.location.localtime,
-        "wDescriptions": fetch.current.weather_descriptions,
-        "temperature": fetch.current.temperature
+        "date": fetch.current.last_updated,
+        "wDescriptions": fetch.current.condition.text,
+        "temperature": fetch.current.temp_c,
+
+
     };
     res.json(out);
 });
