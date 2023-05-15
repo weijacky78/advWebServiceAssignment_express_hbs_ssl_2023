@@ -62,4 +62,4 @@ typings/
 .next
 mailhog
 certs/*
-dbConfig.js
+config/dbConfig.js

@@ -62,6 +62,19 @@ router.get('/ottawa', async function (req, res, next) {
 
 });
 
+router.post('/route_distance', async function (req, res, next) {
+    const start = req.body.start;
+    const end = req.body.end;
+    let url = `https://api.tomtom.com/routing/1/calculateRoute/${start.lat},${start.lng}:${end.lat},${end.lng}/json?key=yGAHDK7KSva4J6KDjwBtsLmFGFb0AHE9`
+    let fetch = await cache.fetchUrl(url, true);
+    let outData = {
+        "distance_in_meter": fetch.routes[0].summary.lengthInMeters
+    };
+    // console.log(outData);
+
+    res.json(outData);
+
+});
 
 
 module.exports = router;
