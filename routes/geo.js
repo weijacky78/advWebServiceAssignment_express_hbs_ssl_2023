@@ -22,8 +22,8 @@ router.get('/', async function (req, res, next) {
 });
 
 // ottawa api
-router.get('/ottawa', async function (req, res, next) {
-    let url = `https://maps.ottawa.ca/arcgis/rest/services/OfficialPlan/MapServer/137/query?where=1%3D1&outFields=NAME,ADDRESS,POSTAL_CODE,PHONE,EMAIL,WEBSITE,OUTDOOR_COMPONENT,ACTIVE,SEASONAL_CONSTRAINTS,LONGITUDE,STUDIO,STORE,NATURE,PUBLIC_ART,EXTERNAL,CITY,PROVINCE,LATITUDE,FOOD,TAGS,SPORT,HERITAGE,LEARNING&outSR=4326&f=json`
+router.get('/ottawa/nature', async function (req, res, next) {
+    let url = `https://maps.ottawa.ca/arcgis/rest/services/OfficialPlan/MapServer/137/query?where=1%3D1&outFields=NAME,ADDRESS,NATURE,CITY,PROVINCE,TAGS&outSR=4326&f=json`
     let fetch = await cache.fetchUrl(url);
     let mapData = fetch.features;
     let outData = [];
@@ -37,22 +37,8 @@ router.get('/ottawa', async function (req, res, next) {
             "setId": i,
             "name": mapData[rnd].attributes.NAME,
             "address": mapData[rnd].attributes.ADDRESS,
-            "phone": mapData[rnd].attributes.PHONE,
-            "email": mapData[rnd].attributes.EMAIL,
-            "website": mapData[rnd].attributes.WEBSITE,
-            "outdoor_component": mapData[rnd].attributes.OUTDOOR_COMPONENT,
-            "studio": mapData[rnd].attributes.STUDIO,
-            "store": mapData[rnd].attributes.STORE,
-            "seasonal_constraints": mapData[rnd].attributes.SEASONAL_CONSTRAINTS,
-            "nature": mapData[rnd].attributes.NATURE,
-            "public art": mapData[rnd].attributes.PUBLIC_ART,
-            "external": mapData[rnd].attributes.EXTERNAL,
             "city": mapData[rnd].attributes.CITY,
             "province": mapData[rnd].attributes.PROVINCE,
-            "food": mapData[rnd].attributes.FOOD,
-            "sport": mapData[rnd].attributes.SPORT,
-            "heritage": mapData[rnd].attributes.HERITAGE,
-            "learning": mapData[rnd].attributes.LEARNING,
             "tag": mapData[rnd].attributes.TAGS,
 
         };
