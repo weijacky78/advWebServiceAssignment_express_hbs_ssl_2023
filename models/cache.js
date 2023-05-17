@@ -27,8 +27,10 @@ module.exports = class {
             let data = fetch.data;
             // insert new cache data for url
             let row = await dbConn.query("INSERT INTO cache (url,`data`) VALUES (?,?);", [url, JSON.stringify(data)]);
+            console.log("howdy", fetch.data);
             dbConn.end();
             data.cache = { age: 0, expires: minExpire }; // provide same data structure as cache hit
+            console.log("howdy 2", fetch.data);
             return data;
 
 

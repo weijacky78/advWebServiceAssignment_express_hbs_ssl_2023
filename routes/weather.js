@@ -10,8 +10,10 @@ router.get('/', async function (req, res, next) {
 
     let url = `http://api.weatherapi.com/v1/forecast.json?key=98e9f5f3121141e1b07162521231205 &q=Ottawa, Canada&aqi=no`;
     let fetch = await cache.fetchUrl(url);
+    console.log(fetch);
     let out = {
         "date": fetch.current.last_updated,
+
         "wDescriptions": fetch.current.condition.text,
         "wIcon": fetch.current.condition.icon,
         "temperature": fetch.current.temp_c,
